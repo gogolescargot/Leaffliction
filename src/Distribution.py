@@ -6,7 +6,7 @@
 #    By: ggalon <ggalon@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/27 13:59:07 by ggalon            #+#    #+#              #
-#    Updated: 2025/05/27 15:42:14 by ggalon           ###   ########.fr        #
+#    Updated: 2025/05/27 16:27:41 by ggalon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,13 +29,16 @@ def distribution():
 		categorie = os.path.basename(dirpath)
 		categories[categorie] = len(filenames)
 
-	plt.figure(figsize=(6, 3))
+	cmap = plt.cm.get_cmap('tab10', len(categories))
+	colors = [cmap(i) for i in range(len(categories))]
 
-	plt.subplot(131)
-	plt.pie(categories.values(), labels=categories.keys())
+	plt.figure(figsize=(16, 8))
 
-	plt.subplot(132)
-	plt.bar(categories.keys(), categories.values())
+	plt.subplot(121)
+	plt.pie(categories.values(), labels=categories.keys(), autopct='%1.0f%%', colors=colors)
+
+	plt.subplot(122)
+	plt.bar(categories.keys(), categories.values(), color=colors)
 
 	plt.suptitle("Class Distribution")
 	plt.show()
